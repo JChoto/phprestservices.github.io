@@ -14,7 +14,7 @@ function listarAllProductos() {
     
     //Petición
     
-    fetch('https://api-php-prueba.danny-usca.com/controller/categoria.php?op=GetAll')
+    fetch('https://jorgewebser.000webhostapp.com/back-end/controller/categoriacontroller.php?op=select')
     .then(resp => resp.json())
     .then(dat =>{
         
@@ -29,9 +29,9 @@ function listarAllProductos() {
         do {           
           
             con.innerHTML+=`
-            <button type="button" onclick="guardarId(${dat[c]['id']},'${dat[c]['nombre']}',${dat[c]['precio']})" class="btn btn-primary">Editar</button>
-            <button type="button" onclick="eliminarId(${dat[c]['id']})" class="btn btn-danger">Eliminar</button>
-            <label>${dat[c]['id']} : ${dat[c]['nombre']}</label> 
+            <button type="button" onclick="guardarId(${dat[c]['cat_id']},'${dat[c]['cat_nom']}',${dat[c]['cat_obs']})" class="btn btn-primary">Editar</button>
+            <button type="button" onclick="eliminarId(${dat[c]['cat_id']})" class="btn btn-danger">Eliminar</button>
+            <label>${dat[c]['cat_id']} : ${dat[c]['cat_nom']}/: ${dat[c]['cat_obs']}</label> 
             <br>
             `;
             
@@ -50,11 +50,11 @@ function listarIdProducto() {
     
     
     var idReceive = document.getElementById("name").value;
-    var data = {"id":idReceive};
+    var data = {"cat_id":idReceive};
     
      //Petición
     
-    fetch('https://api-php-prueba.danny-usca.com/controller/categoria.php?op=GetId', {
+    fetch('https://jorgewebser.000webhostapp.com/back-end/controller/categoriacontroller.php?op=select', {
      method: 'POST',
     body: JSON.stringify(data)
         
@@ -77,7 +77,7 @@ function listarIdProducto() {
         con2.innerHTML = '';
         con2.innerHTML+=`
             
-           <label>${dat[0]['id']} : ${dat[0]['nombre']} = $ ${dat[0]['precio']}</label>
+           <label>${dat[0]['cat_id']} : ${dat[0]['cat_nom']} = $ ${dat[0]['cat_obs']}</label>
 
             `;
 
@@ -92,12 +92,12 @@ function insertProducto() {
      var nombreReceive = document.getElementById("nombre").value;
      var precioReceive = document.getElementById("precio").value;
      
-    var data = {"nombre":nombreReceive,"precio":precioReceive};
+    var data = {"cat_nom":nombreReceive,"cat_obs":precioReceive};
     
     
     //Petición
     
-     fetch('https://api-php-prueba.danny-usca.com/controller/categoria.php?op=Insert', {
+     fetch('https://jorgewebser.000webhostapp.com/back-end/controller/categoriacontroller.php?op=insertar', {
      method: 'POST',
     body: JSON.stringify(data)
         
@@ -129,12 +129,12 @@ function updateProducto() {
      var nombreReceive1 = document.getElementById("nombre2").value;
      var precioReceive1 = document.getElementById("precio2").value;
      
-    var data = {"id":idReceive1,"nombre":nombreReceive1,"precio":precioReceive1};
+    var data = {"cat_id":idReceive1,"cat_nom":nombreReceive1,"cat_obs":precioReceive1};
     
     
     //Petición
     
-     fetch('https://api-php-prueba.danny-usca.com/controller/categoria.php?op=Update', {
+     fetch('https://jorgewebser.000webhostapp.com/back-end/controller/categoriacontroller.php?op=actualizar', {
      method: 'POST',
     body: JSON.stringify(data)
         
@@ -183,11 +183,11 @@ function eliminarId(idSelect) {
     
    
      
-    var data = {"id":idSelect};
+    var data = {"cat_id":idSelect};
    
     //Petición
     
-     fetch('https://api-php-prueba.danny-usca.com/controller/categoria.php?op=Delete', {
+     fetch('https://jorgewebser.000webhostapp.com/back-end/controller/categoriacontroller.php?op=eliminar', {
      method: 'POST',
     body: JSON.stringify(data)
         
@@ -216,13 +216,13 @@ function crearPdf() {
      
      doc.text("Tabla de productos!", 10, 10);
      doc.text("Datos obtenidos a traves de un Servicio Web RESTful!", 10, 20);
-     doc.text("Tabla referencia: tabla_imagen", 10, 30);
+     doc.text("Tabla referencia: categorias", 10, 30);
      
-      fetch('https://api-php-prueba.danny-usca.com/controller/categoria.php?op=GetAll')
+      fetch('https://jorgewebser.000webhostapp.com/back-end/controller/categoriacontroller.php?op=select')
     .then(respo => respo.json())
     .then(datas =>{
         
-      let header = ["id","nombre","precio"];
+      let header = ["id","nombre","seccion"];
       let headerConfig = header.map(key=>({ 
       'name': key,
       'prompt': key,
