@@ -14,7 +14,7 @@ function listarAllProductos() {
     
     //Petición
     
-    fetch('https://jorgewebser.000webhostapp.com/back-end/controller/categoriacontroller.php?op=select')
+    fetch('http://jorgewebser.000webhostapp.com/back-end/controller/categoriacontroller.php?op=select')
     .then(resp => resp.json())
     .then(dat =>{
         
